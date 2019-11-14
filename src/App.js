@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import CardList from "./components/CardList";
 
-function App() {
+const App = () => {
+  const [Personas, setPersonas] = useState(null);
+
+  const fetchData = async () => {
+    const res = await axios.get(
+      "https://corrupcionaldia.com/wp-json/wp/v2/posts/?categories=33&per_page=100"
+    );
+
+    setPersonas(res.data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div>{!Personas ? <p>Cargando...</p> : <CardList data={Personas} />}</div>
   );
-}
+};
 
 export default App;
