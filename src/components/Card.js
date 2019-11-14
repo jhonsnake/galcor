@@ -5,7 +5,7 @@ export default function Card(props) {
   let { nombre, avatar, link } = props;
   return (
     <Wrapper>
-      <a href={link}>
+      <a href={link} target="_blank">
         <Avatar src={avatar} alt={nombre} />
         <Nombre>
           <span>{nombre.rendered}</span>
